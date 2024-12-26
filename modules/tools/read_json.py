@@ -5,3 +5,6 @@ def read_json(fd: str) -> dict:
     with open(path_to_file, "r") as data_json:
         return json.load(data_json)
 
+
+
+
