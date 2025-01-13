@@ -1,4 +1,11 @@
 {
-    "width": 1344,
-    "height": 840
+    "app_width": 0.8,
+    "app_height": 0.8,
+    "app_title": "EDITOR IMAGE",
+    "app_size": {
+        "width": 2048,
+        "height": 1152
+    },
+    "width": 2048,
+    "height": 1152
 }
