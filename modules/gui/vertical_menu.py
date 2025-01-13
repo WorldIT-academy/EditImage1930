@@ -7,7 +7,8 @@ class VerticalMenu(ctk.CTkFrame):
         ctk.CTkFrame.__init__(
             self, 
             master = ch_master,
-            width = self.CONFIG['width'] * 0.04,
+            width = self.CONFIG['width'] * 0.06,
             height = self.CONFIG['height'],
-            fg_color = "#181818"
+            fg_color = "#181818",
+            corner_radius= 0  # No corner radius for vertical menu
         )
