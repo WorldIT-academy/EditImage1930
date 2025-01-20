@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from ..tools import read_json, write_json
 from .frame_template import FrameTemplate
+from .app_button import AppButton
 
 class App(ctk.CTk):
     def __init__(self, **kwargs):
@@ -29,6 +30,7 @@ class App(ctk.CTk):
         self.VERTICAL_MENU = FrameTemplate(
             ch_master= self.CONTENT_FRAME, ch_width= self.WIDTH * 0.059, ch_height= self.HEIGHT * 0.95, ch_fg_color= "#181818")
         self.VERTICAL_MENU.grid(row= 0, column= 0)
+        # self.VERTICAL_MENU.place(x =0 , y = 0)
         # 
         self.EXPLORER = FrameTemplate(
             ch_master= self.CONTENT_FRAME, ch_width= self.WIDTH * 0.179, ch_height= self.HEIGHT * 0.95, ch_fg_color= "#181818")
@@ -45,6 +47,14 @@ class App(ctk.CTk):
         self.CONTENT_DASHBOARD= FrameTemplate(
             ch_master= self.DASHBOARD, ch_width= self.DASHBOARD._current_width, ch_height= self.DASHBOARD._current_height * 0.959, ch_fg_color= "#1f1f1f")
         self.CONTENT_DASHBOARD.grid(row= 1, column= 0, pady = 1)
+        
+        self.BUTTON = AppButton(
+            ch_master= self.VERTICAL_MENU, 
+            name_icon= 'explorer.png', 
+            size= self.VERTICAL_MENU._current_width * 0.5
+            
+        )
+        self.BUTTON.grid(row= 0, column= 0)
         
 
 application = App()  
