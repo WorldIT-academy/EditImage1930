@@ -50,7 +50,7 @@ class App(ctk.CTk):
         
         self.BUTTON = AppButton(
             ch_master= self.VERTICAL_MENU, 
-            name_icon= 'explorer.png', 
+            name_icon= 'explorer1.png', 
             size= self.VERTICAL_MENU._current_width * 0.5
             
         )
