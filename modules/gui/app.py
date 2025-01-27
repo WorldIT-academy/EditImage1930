@@ -2,7 +2,7 @@ import customtkinter as ctk
 from ..tools import read_json, write_json
 from .frame_template import FrameTemplate
 from .app_button import AppButton
-
+from ..tools import search_image
 class App(ctk.CTk):
     def __init__(self, **kwargs):
         
@@ -50,11 +50,11 @@ class App(ctk.CTk):
         
         self.BUTTON = AppButton(
             ch_master= self.VERTICAL_MENU, 
-            name_icon= 'explorer1.png', 
-            size= self.VERTICAL_MENU._current_width * 0.5
-            
+            name_icon= 'explorer.png', 
+            size= self.VERTICAL_MENU._current_width * 0.5,
+            function= search_image    
         )
-        self.BUTTON.grid(row= 0, column= 0)
+        self.BUTTON.place(x= 0, y= 0)
         
 
 application = App()  

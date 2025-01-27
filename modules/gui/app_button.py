@@ -1,12 +1,14 @@
 r'''
+    [Посилання до файлу на GITHUB](https://github.com/WorldIT-academy/EditImage1930/blob/master/modules/gui/app_button.py)
+
     Модуль розроблено з метою  надання інструкції (AppButton) для створення будь якої кнопки в графічному інтерфейсі застосунку:
     >>> class AppButton(ctk.CTkButton)
 
     Модулі:
-    1. customtkinter - модуль GUI, що застосовується з метою розробки графічного інтерфейсу кнопки. 
-    2. PIL - модуль для обробки зображень, що застосовується для завантаження зображення кнопки. Також модуль підтримує завантаження зображення кнопки з файла з директорії static/icons.
-    3. os - для побудови абсолютного шляху до папки static/icons з метою завантаження графічного файлу.
-    4. colorama - для надання кольру помилкам, які виводяться в термінал з функції load_image 
+    1. :mod:`customtkinter` - модуль GUI, що застосовується з метою розробки графічного інтерфейсу кнопки. 
+    2. :mod:`PIL` - модуль для обробки зображень, що застосовується для завантаження зображення кнопки. Також модуль підтримує завантаження зображення кнопки з файла з директорії static/icons.
+    3. :mod:`os` - для побудови абсолютного шляху до папки static/icons з метою завантаження графічного файлу.
+    4. :mod:`colorama` - для надання кольру помилкам, які виводяться в термінал з функції load_image 
 
     Приклад застосування: 
     >>> button = AppButton(ch_master= root, name_icon='explorer.png', size= 20)
@@ -21,29 +23,36 @@ class AppButton(ctk.CTkButton):
     r'''
         Інструкція (клас) розроблена з метою створення графічного інтерфейсу кнопки
         
-        Параметри класу:
+        ### Параметри класу: 
         >>> ch_master: object # - вказуємо об'єкт в якому розташовуємо кнопку 
         >>> name_icon: str # - ім'я картинки, до якої потрібно побудувати абсолютний шлях
         >>> size: float # - вказуємо найменшу сторону фрейма в якому розташовується наша кнопка, а точніше її розмір, та задаємо пропорційність відносно цієї сторони у відсотках
 
-        Приклад:
-        >>> button = AppButton(ch_master= CTkFrame, name_icon='explorer.png', size= CTkFrame._current_width * 0.5)
+        ### Всластивості класу: 
+        - `self.NAME_ICON`: ім'я картинки з директорії static/icons
+        - `self.SIZE`: вказуємо найменшу сторону фрейма в якому розташовується наша кнопка, а точніше її розмір, та задаємо пропорційність відносно цієї сторони у відсотках
+
+        ### Приклад:
+        ```python
+        button = AppButton(ch_master= CTkFrame, name_icon='explorer.png', size= CTkFrame._current_width * 0.5)
+        ```
     '''
-    def __init__(self, ch_master: object, name_icon: str, size: float, **kwargs):
+    def __init__(self, ch_master: object, name_icon: str, size: float, function: object, **kwargs):
 
         self.NAME_ICON = name_icon
-        self.MASTER = ch_master
         self.SIZE = (int(size), int(size))
 
         ctk.CTkButton.__init__(
             self, 
             master= ch_master, 
-            width= 0, 
-            height= 0, 
+            width= int(size), 
+            height= int(size), 
             image= self.load_image(),
             text= '',
             fg_color= ch_master._fg_color,
-            hover= False,
+            hover_color= "#373535",
+            corner_radius= 10,
+            command= function,
             **kwargs
         )
 
