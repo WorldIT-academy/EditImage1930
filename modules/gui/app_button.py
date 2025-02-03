@@ -19,6 +19,7 @@ import os
 import colorama
 
 colorama.init(autoreset= True)
+
 class AppButton(ctk.CTkButton):
     r'''
         Інструкція (клас) розроблена з метою створення графічного інтерфейсу кнопки
@@ -37,7 +38,7 @@ class AppButton(ctk.CTkButton):
         button = AppButton(ch_master= CTkFrame, name_icon='explorer.png', size= CTkFrame._current_width * 0.5)
         ```
     '''
-    def __init__(self, ch_master: object, name_icon: str, size: float, function: object, **kwargs):
+    def __init__(self, ch_master: object, name_icon: str = None, size: float = 50, function: object = None, text_button: str = '', **kwargs):
 
         self.NAME_ICON = name_icon
         self.SIZE = (int(size), int(size))
@@ -48,11 +49,12 @@ class AppButton(ctk.CTkButton):
             width= int(size), 
             height= int(size), 
             image= self.load_image(),
-            text= '',
+            text= text_button,
             fg_color= ch_master._fg_color,
             hover_color= "#373535",
             corner_radius= 10,
             command= function,
+            font= ("Arial", 24, 'bold'),
             **kwargs
         )
 
