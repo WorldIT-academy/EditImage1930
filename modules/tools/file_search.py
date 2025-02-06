@@ -1,15 +1,33 @@
 import tkinter.filedialog as filedialog
 from ..gui.app_button import AppButton
 import customtkinter as ctk
+from .write_json import write_json
+from ..gui.image_dashboard import ImageLabel
 
-def search_image(parent: object, button_parent: ctk.CTkFrame):
+list_image = []
+list_button = []
+
+def show_image():
+    for button in list_button:
+        print(button.TEXT)
+        for image in list_image:
+            print(image.NAME_IMAGE)
+            if button.TEXT == image.NAME_IMAGE:
+                image.pack()
+
+
+                
+                
+
+def search_image(parent: ctk.CTk, button_parent: ctk.CTkScrollableFrame | ctk.CTkFrame, content_dashboard: ctk.CTkFrame):
     r'''
     Function for search image files in directory and create buttons with their names.
      - :mod:`parent`- object, parent application
      - :mod:`button_parent`- object, frame where buttons will be created
     '''
     
-    list_name_files = []
+    # list_name_files = []
+    dict_path_files = dict()
     
     list_files = filedialog.askopenfilenames(
         title= "Search files images",
@@ -32,19 +50,26 @@ def search_image(parent: object, button_parent: ctk.CTkFrame):
         # path_file.split('/')[-1] -> 'worldIT_LOGO.ico'
         name_file = path_file.split('/')[-1] # -> 'worldIT_LOGO.ico'
         type_file = name_file.split('.')[-1] # -> ['worldIT_LOGO', 'ico']
-        print(name_file) 
-        list_name_files.append(name_file)
-        
+        # print(name_file) 
+        # list_name_files.append(path_file)
+        dict_path_files[name_file] = path_file
+        #
+        list_image.append(ImageLabel(ch_master= content_dashboard, path_file= path_file))
+        #
         button = AppButton(
             ch_master = button_parent, 
-            text_button = f'{name_file[0:12]}...    .{type_file}' if len(name_file) > 12 else name_file
+            text_button = name_file,
             # if len(name_file) > 12:
             #     return f'{name_file[0:12]}...    .{type_file}'
             # else:
             #     return name_file
+            function= show_image
         )
-        
         button.pack(pady = 20, padx = 20, anchor = 'w')
-        button_parent.pack_propagate(False)
+        list_button.append(button)
+
+    # write_json(fd= "path_files.json", name_dict= dict_path_files)
+    print(f'Found {len(list_image)} image files.')
+
     print()
 

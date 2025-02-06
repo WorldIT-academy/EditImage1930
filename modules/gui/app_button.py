@@ -42,6 +42,7 @@ class AppButton(ctk.CTkButton):
 
         self.NAME_ICON = name_icon
         self.SIZE = (int(size), int(size))
+        self.TEXT = text_button 
 
         ctk.CTkButton.__init__(
             self, 
@@ -49,7 +50,7 @@ class AppButton(ctk.CTkButton):
             width= int(size), 
             height= int(size), 
             image= self.load_image(),
-            text= text_button,
+            text= f'{self.TEXT[0:12]}...    .{self.TEXT.split('.')[-1]}' if len(self.TEXT) > 12 else self.TEXT,
             fg_color= ch_master._fg_color,
             hover_color= "#373535",
             corner_radius= 10,

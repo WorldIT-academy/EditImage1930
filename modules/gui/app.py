@@ -52,7 +52,7 @@ class App(ctk.CTk):
             ch_master= self.VERTICAL_MENU, 
             name_icon= 'explorer.png', 
             size= self.VERTICAL_MENU._current_width * 0.5,
-            function= lambda: search_image(parent= self, button_parent= self.EXPLORER)    
+            function= lambda: search_image(parent= self, button_parent= self.EXPLORER, content_dashboard= self.CONTENT_DASHBOARD)    
         )
         self.BUTTON.place(x= 0, y= 0)
         
