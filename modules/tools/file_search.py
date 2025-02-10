@@ -4,20 +4,20 @@ import customtkinter as ctk
 from .write_json import write_json
 from ..gui.image_dashboard import ImageLabel
 
-list_image = []
-list_button = []
+list_images = []
 
-def show_image():
-    for button in list_button:
-        print(button.TEXT)
-        for image in list_image:
-            print(image.NAME_IMAGE)
-            if button.TEXT == image.NAME_IMAGE:
-                image.pack()
-
-
-                
-                
+def show_image(frame: ctk.CTkFrame, button_name: str):
+    list_objects_frame = frame.winfo_children() # функція повертає усі фрейми(дітей) нашого вікна і записує їх в список об'єктів
+    
+    for object in list_objects_frame:
+        if isinstance(object, ImageLabel): # перевіряє приналежність об'єкта до класа
+            object.pack_forget() # забуває позиціонування раніше відображених зображень у дашборді.
+            
+    for image in list_images: 
+        if image.NAME_IMAGE == button_name:
+            image.pack()
+            
+        
 
 def search_image(parent: ctk.CTk, button_parent: ctk.CTkScrollableFrame | ctk.CTkFrame, content_dashboard: ctk.CTkFrame):
     r'''
@@ -54,22 +54,18 @@ def search_image(parent: ctk.CTk, button_parent: ctk.CTkScrollableFrame | ctk.CT
         # list_name_files.append(path_file)
         dict_path_files[name_file] = path_file
         #
-        list_image.append(ImageLabel(ch_master= content_dashboard, path_file= path_file))
+        list_images.append(ImageLabel(ch_master= content_dashboard, path_file= path_file))
         #
         button = AppButton(
             ch_master = button_parent, 
             text_button = name_file,
-            # if len(name_file) > 12:
-            #     return f'{name_file[0:12]}...    .{type_file}'
-            # else:
-            #     return name_file
-            function= show_image
+            function= lambda name_button = name_file: show_image(frame= content_dashboard, button_name= name_button)
         )
         button.pack(pady = 20, padx = 20, anchor = 'w')
-        list_button.append(button)
+
 
     # write_json(fd= "path_files.json", name_dict= dict_path_files)
-    print(f'Found {len(list_image)} image files.')
+    print(f'Found {len(list_images)} image files.')
 
     print()
 

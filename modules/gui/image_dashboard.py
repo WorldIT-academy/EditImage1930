@@ -14,6 +14,7 @@ class ImageLabel(ctk.CTkLabel):
             self,
             master= ch_master,
             image= self.load_image(),
+            text= '',
             **kwargs
         )
     
@@ -24,15 +25,34 @@ class ImageLabel(ctk.CTkLabel):
         try:
             return ctk.CTkImage(
                 light_image= image,
-                size= (self.WIDTH, self.HEIGHT) if image.width >= self.WIDTH and image.height >= self.HEIGHT else (image.width, image.height)
+                size= self.image_size(image = image)
                 # if image.width >= self.WIDTH and image.height >= self.HEIGHT: 
                 #     return (self.WIDTH, self.HEIGHT)
                 # else:
                 #     return (image.width, image.height)
             )
-            
         except Exception as error:
             print(f'Error while loading image: {error}')
             return None
+    def image_size(self, image: PIL.Image) -> tuple[int, int]:
+        # Якщо зображення у формі квадрата
+        if image.width == image.height:
+            if image.width >= self.WIDTH and image.height >= self.HEIGHT:
+                return (self.HEIGHT, self.HEIGHT)
+            elif image.width < self.WIDTH and image.height < self.HEIGHT:
+                return (image.width, image.height)
+            else:
+                return (self.HEIGHT, self.HEIGHT)
+        # Якщо зображення у формі прямокутника
+        else:
+            if image.width >= self.WIDTH and image.height >= self.HEIGHT:
+                return (self.WIDTH, self.HEIGHT)
+            elif image.width < self.WIDTH and image.height < self.HEIGHT:
+                return (image.width, image.height)
+            else:
+                return (self.WIDTH, self.HEIGHT)
+            
+
+        
         
     
